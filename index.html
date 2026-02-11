@@ -29,7 +29,7 @@
 <body class="bg-gray-50 text-gray-900 overflow-x-hidden">
 
     <!-- Section 1: Landing Page (Start Screen) -->
-    <div id="landing-page" class="fixed inset-0 z-[100] bg-white flex flex-col items-center justify-center p-6 text-center">
+    <div id="landing-page" class="fixed inset-0 z-[100] bg-white flex flex-col items-center justify-center p-6 text-center transition-all duration-500">
         <div class="mb-8 relative">
             <div class="w-24 h-24 gradient-urgent rounded-3xl flex items-center justify-center text-white shadow-2xl shadow-red-200 mx-auto animate-bounce">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -65,7 +65,7 @@
         </div>
     </div>
 
-    <!-- Section 2: Main App Content (Hidden by default) -->
+    <!-- Section 2: Main App Content -->
     <div id="main-app" class="hidden opacity-0">
         <!-- Navigation -->
         <nav class="bg-white shadow-sm sticky top-0 z-50">
@@ -76,7 +76,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                         </svg>
                     </div>
-                    <span class="font-bold text-xl tracking-tight">Urban<span class="text-red-600">Volunteer</span></span>
+                    <span class="font-bold text-xl tracking-tight cursor-pointer" onclick="resetToLanding()">Urban<span class="text-red-600">Volunteer</span></span>
                 </div>
                 <div class="text-xs bg-red-100 text-red-600 px-2 py-1 rounded-full font-semibold urgency-pulse">
                     LIVE: 3 เหตุการณ์ด่วน
@@ -151,15 +151,15 @@
             <form id="volunteerForm" onsubmit="handleSubmit(event)" class="space-y-4">
                 <div>
                     <label class="block text-sm font-medium mb-1 text-gray-700">ชื่อ-นามสกุล</label>
-                    <input type="text" required placeholder="เช่น สมชาย ใจดี" class="w-full p-3 bg-gray-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500">
+                    <input id="v_name" type="text" required placeholder="เช่น สมชาย ใจดี" class="w-full p-3 bg-gray-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500">
                 </div>
                 <div>
                     <label class="block text-sm font-medium mb-1 text-gray-700">เบอร์ติดต่อ</label>
-                    <input type="tel" required placeholder="08X-XXX-XXXX" class="w-full p-3 bg-gray-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500">
+                    <input id="v_phone" type="tel" required placeholder="08X-XXX-XXXX" class="w-full p-3 bg-gray-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500">
                 </div>
                 <div>
                     <label class="block text-sm font-medium mb-1 text-gray-700">ทักษะ/ความถนัด</label>
-                    <select class="w-full p-3 bg-gray-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 appearance-none">
+                    <select id="v_skill" class="w-full p-3 bg-gray-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 appearance-none">
                         <option>ใช้แรงงานทั่วไป</option>
                         <option>ปฐมพยาบาล</option>
                         <option>ขับรถ/ยานพาหนะ</option>
@@ -184,7 +184,7 @@
         </div>
         <h2 class="text-2xl font-bold mb-2 text-gray-800">ลงทะเบียนสำเร็จ!</h2>
         <p class="text-gray-600 mb-8 max-w-xs">ขอบคุณที่ออกมาช่วยเมืองของเรา ทีมงานกำลังรอคุณอยู่ที่จุดรวมพล</p>
-        <button onclick="location.reload()" class="px-8 py-3 bg-gray-900 text-white rounded-xl font-medium shadow-lg active:scale-95 transition-all">กลับหน้าหลัก</button>
+        <button onclick="resetToLanding()" class="px-8 py-3 bg-gray-900 text-white rounded-xl font-medium shadow-lg active:scale-95 transition-all">กลับหน้าหลัก</button>
     </div>
 
     <script>
@@ -193,7 +193,6 @@
             const mainApp = document.getElementById('main-app');
             
             // Slide out landing
-            landing.style.transition = 'transform 0.5s ease-in-out, opacity 0.5s ease-in-out';
             landing.style.transform = 'translateY(-100%)';
             landing.style.opacity = '0';
             
@@ -203,6 +202,31 @@
                 mainApp.classList.remove('hidden');
                 mainApp.classList.add('fade-in');
             }, 500);
+        }
+
+        // Function to go back to Landing Page without reloading
+        function resetToLanding() {
+            const landing = document.getElementById('landing-page');
+            const mainApp = document.getElementById('main-app');
+            const successOverlay = document.getElementById('successOverlay');
+            const volunteerForm = document.getElementById('volunteerForm');
+
+            // Hide everything else
+            successOverlay.classList.add('hidden');
+            mainApp.classList.add('hidden');
+            mainApp.classList.remove('fade-in');
+            
+            // Reset Form
+            volunteerForm.reset();
+
+            // Show landing page
+            landing.classList.remove('hidden');
+            setTimeout(() => {
+                landing.style.transform = 'translateY(0)';
+                landing.style.opacity = '1';
+            }, 10);
+            
+            document.body.style.overflow = 'auto';
         }
 
         function openModal(title, desc) {
