@@ -97,7 +97,7 @@
                 <div onclick="openModal('น้ำท่วมขังย่านสุขุมวิท 71', 'ต้องการคนช่วยยกกระสอบทรายและกรอกทราย')" 
                      class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 card-active cursor-pointer hover:shadow-md transition-all">
                     <div class="flex justify-between items-start mb-2">
-                        <span class="bg-orange-100 text-orange-700 text-xs px-2 py-1 rounded font-bold">ต้องการ 20 คน</span>
+                        <span class="bg-orange-100 text-orange-700 text-xs px-2 py-1 rounded font-bold uppercase">ต้องการ 20 คน</span>
                         <span class="text-gray-400 text-xs flex items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -105,8 +105,20 @@
                             เหลือเวลา 4 ชม.
                         </span>
                     </div>
-                    <h3 class="text-lg font-bold">น้ำท่วมขังย่านสุขุมวิท 71</h3>
+                    <h3 class="text-lg font-bold mb-1">น้ำท่วมขังย่านสุขุมวิท 71</h3>
                     <p class="text-gray-600 text-sm mb-4">จุดรวมพล: ปากซอยปรีดีพนมยงค์ (หน้า 7-Eleven)</p>
+                    
+                    <!-- Volunteer Count Progress -->
+                    <div class="mb-4">
+                        <div class="flex justify-between text-xs mb-1">
+                            <span class="text-red-600 font-semibold">เข้าร่วมแล้ว 14 คน</span>
+                            <span class="text-gray-400">ขาดอีก 6 คน</span>
+                        </div>
+                        <div class="w-full bg-gray-100 rounded-full h-1.5">
+                            <div class="bg-red-500 h-1.5 rounded-full" style="width: 70%"></div>
+                        </div>
+                    </div>
+
                     <div class="flex items-center text-xs text-blue-600 font-medium">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -119,13 +131,25 @@
                 <div onclick="openModal('เก็บขยะชายหาดบางแสน', 'ช่วยคัดแยกขยะพลาสติกหลังน้ำลด')"
                      class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 cursor-pointer hover:shadow-md transition-all" style="border-left: 8px solid #EAB308;">
                     <div class="flex justify-between items-start mb-2">
-                        <span class="bg-yellow-100 text-yellow-700 text-xs px-2 py-1 rounded font-bold">ต้องการ 50 คน</span>
+                        <span class="bg-yellow-100 text-yellow-700 text-xs px-2 py-1 rounded font-bold uppercase">ต้องการ 50 คน</span>
                         <span class="text-gray-400 text-xs flex items-center">
                             เหลือเวลา 18 ชม.
                         </span>
                     </div>
-                    <h3 class="text-lg font-bold">เก็บขยะชายหาดบางแสน</h3>
+                    <h3 class="text-lg font-bold mb-1">เก็บขยะชายหาดบางแสน</h3>
                     <p class="text-gray-600 text-sm mb-4">จุดรวมพล: วงเวียนชายหาด</p>
+
+                    <!-- Volunteer Count Progress -->
+                    <div class="mb-4">
+                        <div class="flex justify-between text-xs mb-1">
+                            <span class="text-yellow-600 font-semibold">เข้าร่วมแล้ว 42 คน</span>
+                            <span class="text-gray-400">ขาดอีก 8 คน</span>
+                        </div>
+                        <div class="w-full bg-gray-100 rounded-full h-1.5">
+                            <div class="bg-yellow-500 h-1.5 rounded-full" style="width: 84%"></div>
+                        </div>
+                    </div>
+
                     <div class="flex items-center text-xs text-blue-600 font-medium">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -204,22 +228,17 @@
             }, 500);
         }
 
-        // Function to go back to Landing Page without reloading
         function resetToLanding() {
             const landing = document.getElementById('landing-page');
             const mainApp = document.getElementById('main-app');
             const successOverlay = document.getElementById('successOverlay');
             const volunteerForm = document.getElementById('volunteerForm');
 
-            // Hide everything else
             successOverlay.classList.add('hidden');
             mainApp.classList.add('hidden');
             mainApp.classList.remove('fade-in');
-            
-            // Reset Form
             volunteerForm.reset();
 
-            // Show landing page
             landing.classList.remove('hidden');
             setTimeout(() => {
                 landing.style.transform = 'translateY(0)';
